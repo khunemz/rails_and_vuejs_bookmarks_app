@@ -6,13 +6,26 @@
         - @bookmark.errors.full_messages.each do |msg|
           %li= msg
 
+  %p.flash.bg-danger.text-danger{'v-if' => 'error'} {{error}}
+
   .p
     = f.label :url
-    = f.text_field :url, class: 'form-control'
+    = f.text_field :url, class: 'form-control' , "v-model" => 'url' , 'v-on:change' => 'urlChange'
   .p
     = f.label :title
-    = f.text_field :title, class: 'form-control'
-  
+    = f.text_field :title, class: 'form-control', 'v-model'  => 'title'
+
+  .well
+    .row
+      .col-md-3
+        %p(v-if="image")
+          %img{"v-bind:src" => "image", width: '100%'}
+        =f.hidden_field :image
+      .col-md-9
+        %p(v-if="paragraph")
+          {{paragraph}}
+        =f.hidden_field :paragraph
+
   %hr
   .p
     = f.submit 'Save' , class: 'btn btn-primary'
